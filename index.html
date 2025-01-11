@@ -24,6 +24,11 @@
       background-color: #fff;
       border: 1px solid #ccc;
       border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    li:hover {
+      background-color: #e0f7fa;
     }
     a {
       color: #007BFF;
@@ -40,26 +45,98 @@
       font-weight: bold;
       color: green;
     }
+    #feedback {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+    #popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+    #popup button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #popup button:hover {
+      background-color: #0056b3;
+    }
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+    }
   </style>
+  <script>
+    function showPopup(category) {
+      const popup = document.getElementById('popup');
+      const overlay = document.getElementById('overlay');
+      const popupContent = document.getElementById('popup-content');
+
+      popupContent.textContent = `Has seleccionado: ${category}`;
+      popup.style.display = 'block';
+      overlay.style.display = 'block';
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      const overlay = document.getElementById('overlay');
+
+      popup.style.display = 'none';
+      overlay.style.display = 'none';
+    }
+
+    function handleFeedback() {
+      const feedback = document.getElementById('feedback');
+      feedback.textContent = '¡Gracias por interactuar con nuestra página!';
+    }
+  </script>
 </head>
 <body>
   <h1>Índice de negocios - RED ofertas</h1>
   <h2>¿Qué estás buscando? 📍</h2>
   <p>Selecciona una de las opciones para descubrir los negocios de la <strong>RED de Ofertas</strong>.</p>
   <ul>
-    <li><a href="#supermercado">Supermercado ej.</a></li>
-    <li><a href="#agencias">Agencias de viaje</a></li>
-    <li><a href="#autolavados">Autolavados</a></li>
-    <li><a href="#bares">Bares</a></li>
-    <li><a href="#barberias">Barberías</a></li>
+    <li onclick="showPopup('Supermercado ej.')">Supermercado ej.</li>
+    <li onclick="showPopup('Agencias de viaje')">Agencias de viaje</li>
+    <li onclick="showPopup('Autolavados')">Autolavados</li>
+    <li onclick="showPopup('Bares')">Bares</li>
+    <li onclick="showPopup('Barberías')">Barberías</li>
   </ul>
 
   <h2 id="supermercado">Supermercado ej.</h2>
   <a class="contact-link" href="https://ibejmfr.github.io/Red_Ofertas/" target="_blank">HAZ CLICK AQUÍ PARA CONTACTARNOS VÍA WHATSAPP</a>
 
-  <h2 id="agencias">Agencias de viaje</h2>
-  <h2 id="autolavados">Autolavados</h2>
-  <h2 id="bares">Bares</h2>
-  <h2 id="barberias">Barberías</h2>
+  <!-- Feedback interactivo -->
+  <div id="feedback"></div>
+  <button onclick="handleFeedback()">Enviar Feedback</button>
+
+  <!-- Popup interactivo -->
+  <div id="overlay" onclick="closePopup()"></div>
+  <div id="popup">
+    <p id="popup-content"></p>
+    <button onclick="closePopup()">Cerrar</button>
+  </div>
 </body>
 </html>
